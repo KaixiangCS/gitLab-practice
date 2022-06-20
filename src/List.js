@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import people from './data';
-import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
+import projects from './data';
+import { FaChevronLeft, FaChevronRight,FaRandom} from 'react-icons/fa';
 
-const Review = () => {
+const List = () => {
   const[index,setIndex] = useState(0);
-  const{name,job,image,text} = people[index]
+  const{name,job,image,text} = projects[index]
+  const[readMore,setReadMore] = useState(false);
 
   const checkNumber = (number) =>{
-    if(number > people.length - 1){
+    if(number > projects.length - 1){
       return 0;
     }
     else if(number < 0){
-      return people.length - 1;
+      return projects.length - 1;
     }
     else{
       return number;
     }
   }
   const randomProject = () =>{
-    let randomNumber = Math.floor(Math.random()*people.length);
+    let randomNumber = Math.floor(Math.random()*projects.length);
     if(randomNumber === index){
       randomNumber = index + 1
 
@@ -42,19 +43,23 @@ const Review = () => {
       return checkNumber(newIndex)
     })
   }
-  return (<article className = 'review'>
+  return (<article className = 'list'>
     <div className='img-container'>
       <img src = {image} alt= {name} className = 'person-img'/>
-      <span className = 'quote-icon'>
-        <FaQuoteRight/>
-      </span>
       </div>
       <h4 className = 'author'>{name}</h4>
       <p className = 'job'>{job}</p>
-      <p className = 'info'>{text}</p>
+      <p className = 'info'>{readMore ? text:`${text.substring(0,100)}...`}
+      <button className = 'random-btn' onClick={()=>setReadMore(!readMore)}>
+        {readMore?'show less':'  read more'}
+      </button>
+      </p>
       <div className='button-container'>
         <button className = 'prev-btn' onClick = {prevProject}>
           <FaChevronLeft/>
+        </button>
+        <button className = 'random-btn' onClick = {randomProject}>
+          <FaRandom/>
         </button>
         <button className = 'next-btn' onClick = {nextProject}>
           <FaChevronRight/>
@@ -66,13 +71,11 @@ const Review = () => {
       
  
       <div className='button-container'>
-        <button className = 'random-btn' onClick = {randomProject}>
-          surprise me
-        </button>
+        
       
       </div>
     
       </article>);
 };
 
-export default Review;
+export default List;

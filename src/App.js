@@ -1,5 +1,5 @@
 import React from 'react';
-import Review from './Review';
+import List from './List';
 //import {FaGithubSquare} from 'react-icons/fa'
 function App() {
   return <main>
@@ -8,7 +8,7 @@ function App() {
         <h2>My projects</h2>
         <div className = 'underline'></div>
       </div>
-      <Review/>
+      <List/>
 
     </section>
     
